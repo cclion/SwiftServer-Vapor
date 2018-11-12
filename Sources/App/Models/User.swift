@@ -13,7 +13,9 @@ final class User: SQLiteModel {
     var id: Int?
     
     /// A title describing what this `Todo` entails.
-    var phone: String
+    var phone: String?
+    
+    var password: String?
     
     /// Creates a new `Todo`.
     init(id: Int? = nil, title: String) {
