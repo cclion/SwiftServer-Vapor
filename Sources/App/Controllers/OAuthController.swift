@@ -29,16 +29,22 @@ class OAuthController {
                 .flatMap({ (user) in
                 
                 guard user != nil else{
-                
-                    _ =  content.save(on: req)
-                    return try ResponseJSON<Empty>(code: 0, message: "注册成功").encode(for: req)
+                    let result =  content.save(on: req)
+                    
+                  return result.flatMap({ content in
+                    
+                 let accessToken = try self.addToken(content.id!, on: req)
+                    
+                return try ResponseJSON<AccessToken>(code: 0, message: "注册成功", data: accessToken).encode(for: req)
+
+                    })
                     
                 }
                 return try ResponseJSON<Empty>(code: 101, message: "用户已存在").encode(for: req)
             })
         })
     }
-    
+    // 登录
     func login(_ req: Request) throws -> Future<Response> {
         return try req.content.decode(User.self).flatMap({ content in
             
@@ -66,8 +72,20 @@ class OAuthController {
         })
     }
     
+}
+
+private extension OAuthController {
     
+    // 添加token
     
-    
-    
+    func addToken(_ uid: Int, on connection: DatabaseConnectable) throws -> AccessToken {
+
+        let accessToken = try AccessToken(userID: uid)
+        
+        _ = accessToken.save(on: connection)
+
+        return accessToken
+        
+    }
+
 }
