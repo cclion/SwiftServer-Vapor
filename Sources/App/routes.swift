@@ -19,5 +19,6 @@ public func routes(_ router: Router) throws {
     router.delete("todos", use: todoController.delete)
     router.post("regist", use: OAuthController().regist)
     router.post("login", use: OAuthController().login)
+    router.post("getUserInfo", use: OAuthController().getUserInfo)
 
 }

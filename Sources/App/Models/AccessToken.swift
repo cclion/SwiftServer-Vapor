@@ -11,7 +11,6 @@ import Crypto
 
 final class AccessToken: SQLiteModel {
     
-    /// The unique identifier for this `Todo`.
     var id: Int?
     
     private(set) var token: String
@@ -25,7 +24,6 @@ final class AccessToken: SQLiteModel {
         self.userID = userID
         self.expiryTime = Date().addingTimeInterval(AccessToken.accessTokenExpirationInterval)
     }
-    
     
 }
 

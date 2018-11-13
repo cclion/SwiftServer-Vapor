@@ -12,6 +12,9 @@ final class User: SQLiteModel {
     /// The unique identifier for this `Todo`.
     var id: Int?
     
+    var test: String?
+
+    
     /// A title describing what this `Todo` entails.
     var phone: String?
     
