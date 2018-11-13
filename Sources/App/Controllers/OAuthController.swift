@@ -33,7 +33,7 @@ class OAuthController {
 
                     let result =  content.save(on: req)
                     return result.flatMap({ content in
-                        let accessToken = try self.addToken(content.id!, on: req)
+                        let accessToken = try AccessTokenController.sharedInstance.addToken(content.id!, on: req)
                         return try ResponseJSON<AccessToken>(code: 0, message: "注册成功", data: accessToken).encode(for: req)
                     })
                 }
@@ -74,7 +74,7 @@ class OAuthController {
     func getUserInfo(_ req: Request) throws -> Future<Response> {
  
         /********   第二种👋token验证   Request->func(route)->func(getUID)->func(route)->func(getUID)->Response    *******/
-        return try self.getUserIDReview(req: req, UID: { (uid) -> (EventLoopFuture<Response>) in
+        return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (uid) -> (EventLoopFuture<Response>) in
             // 查找
             return User
                 .query(on: req)
@@ -92,7 +92,7 @@ class OAuthController {
     // 设置个人信息
     func setUserInfo(_ req:Request) throws -> Future<Response> {
         
-        return try self.getUserIDReview(req: req, UID: { (uid) -> (EventLoopFuture<Response>) in
+        return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (uid) -> (EventLoopFuture<Response>) in
             // 查找
             return User
                 .query(on: req)
@@ -122,7 +122,6 @@ class OAuthController {
 
                         })
                         
-        
                     })
                 })
         })
@@ -130,48 +129,3 @@ class OAuthController {
  
 }
 
-private extension OAuthController {
-
-    // 添加token 注册时和登录时都会新增Token
-    func addToken(_ uid: Int, on connection: DatabaseConnectable) throws -> AccessToken {
-
-        let accessToken = try AccessToken(userID: uid)
-        
-        _ = accessToken.save(on: connection)
-
-        return accessToken
-    }
-
-    // 根据Token返回UID
-    func getUserID(_ token: String, on connection: DatabaseConnectable) throws -> Future<AccessToken?> {
-        
-        return  AccessToken
-        .query(on: connection)
-        .filter(\.token, .equal, token)
-        .first()
-    }
-    // 验证Token
-    func getUserIDReview(req: Request, UID:@escaping (Int)->(Future<Response>)) throws -> Future<Response> {
-        
-        //获取Token
-        let Authorization = req.http.headers["Authorization"]
-        if Authorization.count == 0 {
-            return try ResponseJSON<Empty>(code: 102, message: "请携带Token").encode(for: req)
-        }
-        let token = Authorization[0]
-        
-        return  AccessToken
-            .query(on: req)
-            .filter(\.token, .equal, token)
-            .first()
-            .flatMap({ (exist) in
-                
-                guard exist != nil else{
-                    return try ResponseJSON<Empty>(code: 103, message: "tokenw错误 没有找到这个用户").encode(for: req)
-                }
-                return UID(exist!.userID)
-            })
-    }
-    
-    
-}
