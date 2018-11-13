@@ -28,4 +28,15 @@ struct ResponseJSON<T: Content>: Content {
         self.message = message
         self.data = nil
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+

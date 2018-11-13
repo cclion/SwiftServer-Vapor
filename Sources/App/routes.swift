@@ -21,4 +21,6 @@ public func routes(_ router: Router) throws {
     router.post("login", use: OAuthController().login)
     router.post("getUserInfo", use: OAuthController().getUserInfo)
     router.post("setUserInfo", use: OAuthController().setUserInfo)
+    router.post("addArticle", use: ArticleController().addArticle)
+
 }
