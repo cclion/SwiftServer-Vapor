@@ -9,18 +9,22 @@ import FluentSQLite
 import Vapor
 
 final class User: SQLiteModel {
-    /// The unique identifier for this `Todo`.
+
     var id: Int?
     
-    var test: String?
-
-    
-    /// A title describing what this `Todo` entails.
     var phone: String?
     
     var password: String?
     
-    /// Creates a new `Todo`.
+    /*USERINFO*/
+    
+    var age: Int?
+
+    var name: String?
+
+    var headImage: String?
+
+    /// Creates a new `User`.
     init(id: Int? = nil, title: String) {
         self.id = id
         self.phone = title
