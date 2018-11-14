@@ -31,6 +31,20 @@ final class ArticleController {
             
         })
     }
+      // 获取文章
+    func getArticles(_ req: Request) throws -> Future<Response> {
         
+        return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (userID) -> (EventLoopFuture<Response>) in
+            
+            return Article
+            .query(on: req)
+            .filter(\.userID, .equal, userID)
+            .all().flatMap({ content in
+                
+                return try ResponseJSON<[Article]>(code: 0, message: "获取g成功",data: content).encode(for: req)
+            })
+        })
+  
+    }
  
 }
