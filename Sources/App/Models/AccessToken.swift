@@ -5,11 +5,11 @@
 //  Created by job on 2018/11/12.
 //
 
-import FluentSQLite
+import FluentMySQL
 import Vapor
 import Crypto
 
-final class AccessToken: SQLiteModel {
+final class AccessToken: MySQLModel {
     
     var id: Int?
     

@@ -5,10 +5,10 @@
 //  Created by job on 2018/11/13.
 //
 
-import FluentSQLite
+import FluentMySQL
 import Vapor
 
-final class Article: SQLiteModel {
+final class Article: MySQLModel {
     
     var id: Int?
     
