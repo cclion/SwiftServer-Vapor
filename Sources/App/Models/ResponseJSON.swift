@@ -16,14 +16,14 @@ struct ResponseJSON<T: Content>: Content {
 
     init(code: Int = 0,
          message: String,
-         data:T?) {
+         data:T?) throws {
         self.code = code
         self.message = message
         self.data = data
     }
     
     init(code: Int = 0,
-         message: String) {
+         message: String) throws {
         self.code = code
         self.message = message
         self.data = nil

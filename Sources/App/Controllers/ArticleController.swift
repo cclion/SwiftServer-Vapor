@@ -19,16 +19,12 @@ final class ArticleController {
             guard content.content != nil else {
                 return try ResponseJSON<Empty>(code: 101, message: "请输入内容").encode(for: req)
             }
-            
             return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (useID) -> (EventLoopFuture<Response>) in
                 content.userID = useID
                 return content.save(on: req).flatMap({result in
                     return try ResponseJSON<Empty>(code: 0, message: "添加成功").encode(for: req)
-                    
                 })
-                
             })
-            
         })
     }
       // 获取文章

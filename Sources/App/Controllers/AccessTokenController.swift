@@ -28,7 +28,7 @@ final class AccessTokenController {
             .first()
     }
     // 验证Token
-    func getUserIDReview(req: Request, UID:@escaping (Int)->(Future<Response>)) throws -> Future<Response> {
+    func getUserIDReview(req: Request, UID:@escaping (Int) throws ->(Future<Response>)) throws -> Future<Response> {
         
         //获取Token
         let Authorization = req.http.headers["Authorization"]
@@ -46,7 +46,7 @@ final class AccessTokenController {
                 guard exist != nil else{
                     return try ResponseJSON<Empty>(code: 103, message: "tokenw错误 没有找到这个用户").encode(for: req)
                 }
-                return UID(exist!.userID)
+                return try UID(exist!.userID)
             })
     }
 

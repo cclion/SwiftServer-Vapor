@@ -23,5 +23,6 @@ public func routes(_ router: Router) throws {
     router.post("setUserInfo", use: OAuthController().setUserInfo)
     router.post("addArticle", use: ArticleController().addArticle)
     router.post("getArticles", use: ArticleController().getArticles)
+    router.post("updateImage", use: ImageController().updateImage)
 
 }
