@@ -24,5 +24,6 @@ public func routes(_ router: Router) throws {
     router.post("addArticle", use: ArticleController().addArticle)
     router.post("getArticles", use: ArticleController().getArticles)
     router.post("updateImage", use: ImageController().updateImage)
+    router.get("getImage", String.parameter, use: ImageController().getImage)
 
 }

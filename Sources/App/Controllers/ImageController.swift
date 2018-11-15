@@ -34,10 +34,21 @@ final class ImageController{
             return try ResponseJSON<Empty>(code: 0, message: "上传成功").encode(for: req)
 
           })
-            return try ResponseJSON<Empty>(code: 0, message: "上传成功").encode(for: req)
         })
     }
     
+    func getImage(_ req:Request) throws -> Future<Response> {
+        
+         let imageName = try req.parameters.next(String.self)
+         let basePath = self.getPath(req)
+         let imagePath = basePath + imageName
+        
+        if !FileManager.default.fileExists(atPath: imagePath) {
+            return try ResponseJSON<Empty>(code: 101, message: "获取不到").encode(for: req)
+        }
+        return try req.streamFile(at: imagePath)
+        
+    }
     
 }
 
