@@ -27,7 +27,8 @@ final class ImageController{
             }
             
             let imageName = try self.getImageName()
-            let path = ("/Users/job/Desktop/image/"+imageName+".png")
+            let basePath = self.getPath(req)
+            let path = (basePath+imageName+".png")
             try Data(imageFile.data).write(to: URL(fileURLWithPath: path))
             
             return try ResponseJSON<Empty>(code: 0, message: "上传成功").encode(for: req)
@@ -53,5 +54,15 @@ private extension ImageController {
         
         return imageName
     }
+    
+    func getPath(_ req: Request) -> String {
+        if req.environment.isRelease {
+            return "/home/VaporSwift/image/"
+        }else{
+            return "/Users/job/Desktop/image/"
+        }
+    }
+    
+    
     
 }
