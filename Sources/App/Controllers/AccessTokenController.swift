@@ -49,6 +49,20 @@ final class AccessTokenController {
                 return try UID(exist!.userID)
             })
     }
+    
+    func exit(_ req: Request) throws -> Future<Response> {
+        
+        return try self.getUserIDReview(req: req, UID: { (userID) -> (EventLoopFuture<Response>) in
+            
+            _ = AccessToken
+            .query(on: req)
+            .filter(\.userID, .equal, userID)
+            .delete()
+            
+            return try ResponseJSON<Empty>(code: 0, message: "注销成功").encode(for: req)
 
+        })
+ 
+    }
 }
 

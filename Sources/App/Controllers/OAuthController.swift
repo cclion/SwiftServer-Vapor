@@ -126,6 +126,15 @@ class OAuthController {
                 })
         })
     }
+    // MARK: 退出登录
+    func exit(_ req:Request) throws -> Future<Response> {
+        
+        return try AccessTokenController.sharedInstance.exit(req)
+        
+    }
+    
+    
+    
  
 }
 
