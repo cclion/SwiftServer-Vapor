@@ -11,7 +11,7 @@ final class AccessTokenController {
     
      static let sharedInstance = AccessTokenController()
     
-    // 添加token 注册时和登录时都会新增Token
+    // MARK: 添加token
     func addToken(_ uid: Int, on connection: DatabaseConnectable) throws -> AccessToken {
         
         let accessToken = try AccessToken(userID: uid)
@@ -19,7 +19,7 @@ final class AccessTokenController {
         return accessToken
     }
     
-    // 根据Token返回UID
+    // MARK: 返回userID
     func getUserID(_ token: String, on connection: DatabaseConnectable) throws -> Future<AccessToken?> {
         
         return  AccessToken
@@ -27,7 +27,7 @@ final class AccessTokenController {
             .filter(\.token, .equal, token)
             .first()
     }
-    // 验证Token
+    // MARK: 验证token
     func getUserIDReview(req: Request, UID:@escaping (Int) throws ->(Future<Response>)) throws -> Future<Response> {
         
         //获取Token
@@ -50,6 +50,7 @@ final class AccessTokenController {
             })
     }
     
+    // MARK: 退出登录
     func exit(_ req: Request) throws -> Future<Response> {
         
         return try self.getUserIDReview(req: req, UID: { (userID) -> (EventLoopFuture<Response>) in

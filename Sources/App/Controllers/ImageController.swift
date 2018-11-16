@@ -11,7 +11,13 @@ import Crypto
 import Random
 
 
-final class ImageController{
+final class ImageController: RouteCollection{
+    func boot(router: Router) throws {
+        router.group("image") { (group) in
+            group.post("updateImage", use: self.updateImage)
+            group.get("getImage", String.parameter, use: self.getImage)
+        }
+    }
     
     // MARK: 保存图片
     func updateImage(_ req: Request) throws -> Future<Response> {

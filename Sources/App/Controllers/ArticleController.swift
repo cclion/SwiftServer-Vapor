@@ -7,7 +7,13 @@
 
 import Vapor
 
-final class ArticleController {
+final class ArticleController: RouteCollection {
+    func boot(router: Router) throws {
+        router.group("article") { (group) in
+            router.post("addArticle", use: self.addArticle)
+            router.post("getArticles", use: self.getArticles)
+        }
+    }
     
     // MARK: 添加文章
     func addArticle(_ req: Request) throws -> Future<Response> {

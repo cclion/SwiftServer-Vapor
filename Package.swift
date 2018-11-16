@@ -16,9 +16,12 @@ let package = Package(
         // 🐬 Swift ORM (queries, models, relations, etc) built on MySQL.
         .package(url: "https://github.com/vapor/fluent-mysql.git", from: "3.0.1"),
         
+        // 🍃 An expressive, performant, and extensible templating language built for Swift.
+        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.2")
+        
     ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL"]),
+        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL", "Leaf"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]

@@ -7,7 +7,16 @@
 
 import Vapor
 
-class OAuthController {
+class OAuthController: RouteCollection{
+    func boot(router: Router) throws {
+        router.group("oauth") { (group) in
+            group.post("regist", use: self.regist)
+            group.post("login", use: self.login)
+            group.post("getUserInfo", use: self.getUserInfo)
+            group.post("setUserInfo", use: self.setUserInfo)
+            group.post("exit", use: self.exit)
+        }
+    }
     
     // MARK: 注册
     func regist(_ req: Request) throws -> Future<Response> {
