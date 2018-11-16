@@ -9,7 +9,7 @@ import Vapor
 
 final class ArticleController {
     
-    //MARK: 添加文章
+    // MARK: 添加文章
     func addArticle(_ req: Request) throws -> Future<Response> {
         
         return try req.content.decode(Article.self).flatMap({ content in
@@ -27,7 +27,7 @@ final class ArticleController {
             })
         })
     }
-      // 获取文章
+    // MARK: 获取个人文章列表
     func getArticles(_ req: Request) throws -> Future<Response> {
         
         return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (userID) -> (EventLoopFuture<Response>) in

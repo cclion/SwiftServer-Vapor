@@ -9,7 +9,7 @@ import Vapor
 
 class OAuthController {
     
-    // 注册
+    // MARK: 注册
     func regist(_ req: Request) throws -> Future<Response> {
         //🌹 flatMap： Future->Obj<self>
         return try req.content.decode(User.self).flatMap({ content in
@@ -42,7 +42,7 @@ class OAuthController {
         })
     }
     
-    // 登录
+    // MARK: 登录
     func login(_ req: Request) throws -> Future<Response> {
         return try req.content.decode(User.self).flatMap({ content in
             
@@ -70,7 +70,7 @@ class OAuthController {
         })
     }
     
-    // 获取个人信息
+    // MARK: 获取个人信息
     func getUserInfo(_ req: Request) throws -> Future<Response> {
  
         /********   第二种👋token验证   Request->func(route)->func(getUID)->func(route)->func(getUID)->Response    *******/
@@ -89,7 +89,7 @@ class OAuthController {
                 })
         })
     }
-    // 设置个人信息
+    // MARK: 设置个人信息
     func setUserInfo(_ req:Request) throws -> Future<Response> {
         
         return try AccessTokenController.sharedInstance.getUserIDReview(req: req, UID: { (uid) -> (EventLoopFuture<Response>) in
