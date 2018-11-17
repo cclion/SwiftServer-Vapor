@@ -12,7 +12,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(router, as: Router.self)
 
     /// RegisterServerConfig
-    let serverConfig = NIOServerConfig.default(hostname:"0.0.0.0", port: 8887)
+    let serverConfig = NIOServerConfig.default(hostname:"0.0.0.0", port: 80)
     services.register(serverConfig)
     
     /// Register middleware
