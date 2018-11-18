@@ -10,8 +10,8 @@ import Vapor
 final class ArticleController: RouteCollection {
     func boot(router: Router) throws {
         router.group("article") { (group) in
-            router.post("addArticle", use: self.addArticle)
-            router.post("getArticles", use: self.getArticles)
+            group.post("addArticle", use: self.addArticle)
+            group.post("getArticles", use: self.getArticles)
         }
     }
     
@@ -43,7 +43,7 @@ final class ArticleController: RouteCollection {
             .filter(\.userID, .equal, userID)
             .all().flatMap({ content in
                 
-                return try ResponseJSON<[Article]>(code: 0, message: "获取g成功",data: content).encode(for: req)
+                return try ResponseJSON<[Article]>(code: 0, message: "获取成功",data: content).encode(for: req)
             })
         })
   
