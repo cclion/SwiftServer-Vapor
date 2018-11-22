@@ -30,7 +30,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Configure a MYSQL database
     let mysqlConfig :MySQLDatabaseConfig
     
-//    if env.isRelease { //正式服
+    if env.isRelease { //正式服
         mysqlConfig = MySQLDatabaseConfig(
             hostname: "39.98.67.77",
             port: 3306,
@@ -38,15 +38,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
             password: "123456",
             database: "vapor"
         )
-//    }else{
-//        mysqlConfig = MySQLDatabaseConfig(
-//            hostname: "127.0.0.1",
-//            port: 3306,
-//            username: "root",
-//            password: "123456",
-//            database: "vapor"
-//        )
-//    }
+    }else{
+        mysqlConfig = MySQLDatabaseConfig(
+            hostname: "127.0.0.1",
+            port: 3306,
+            username: "root",
+            password: "123456",
+            database: "vapor"
+        )
+    }
 
     services.register(mysqlConfig)
 
