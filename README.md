@@ -14,3 +14,5 @@
 这是基于 [Swift 4.2](https://swift.org) 和 [Vapor 3](http://vapor.codes) 框架的 Swift 服务端开源项目。
 
 目前此开源项目已部署在cclion.cc(http://cclion.cc) ubuntu 16.04
+
+[👉 **从这里**](Public/API.md) 查看列出的 API 示例文档和调试。
