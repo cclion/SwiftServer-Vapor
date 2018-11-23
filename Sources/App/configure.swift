@@ -1,13 +1,15 @@
 import FluentMySQL
 import Vapor
 import Leaf
-
+import Redis
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     /// Register providers first
     try services.register(FluentMySQLProvider())
 
+
+    
     /// Register routes to the router
     let router = EngineRouter.default()
     try routes(router)
@@ -49,6 +51,34 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     }
 
     services.register(mysqlConfig)
+
+//    // Create a SQLite database.
+//    let mysqlDB = MySQLDatabase(config: mysqlConfig)
+//    // Create a new, empty DatabasesConfig.
+//    var dbsConfig = DatabasesConfig()
+//    // Register the SQLite database using '.sqlite' as an identifier.
+//    dbsConfig.add(database: mysqlDB, as: .mysql)
+//    // Register the DatabaseConfig to services.
+//    services.register(dbsConfig)
+    
+    
+//    let redisProvider = RedisProvider()
+//    redisProvider.register(&<#T##services: Services##Services#>)
+    
+    
+    // register Redis provider
+//    try services.register(RedisProvider())
+//
+//
+    /// Register the configured SQLite database to the database config.
+//    var databases = DatabasesConfig()
+    var redisConfig: RedisClientConfig = RedisClientConfig()
+    redisConfig.hostname = "127.0.0.1"
+    redisConfig.port = 6379
+
+//    let redisDatabse = try RedisDatabase(config: redisConfig)
+//    databases.add(database: redisDatabse, as: .redis)
+    services.register(redisConfig)
 
     /// Configure migrations
     var migrations = MigrationConfig()

@@ -17,11 +17,17 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-mysql.git", from: "3.0.1"),
         
         // 🍃 An expressive, performant, and extensible templating language built for Swift.
-        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.2")
+        .package(url: "https://github.com/vapor/leaf.git", from: "3.0.2"),
+        
+        //🗄 Core services for creating database integrations.
+//        .package(url: "https://github.com/vapor/database-kit.git", from: "1.0.0"),
+        
+        // ⚡️Non-blocking, event-driven Redis client.
+        .package(url: "https://github.com/vapor/redis.git", from: "3.0.2"),
         
     ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL", "Leaf"]),
+        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL", "Leaf", "Redis"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
