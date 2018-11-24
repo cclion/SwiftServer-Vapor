@@ -12,6 +12,16 @@ public func routes(_ router: Router) throws {
         return try req.view().render("hello", ["name": "Leaf"])
     }
 
+    router.get("redis") { req -> Future<String> in
+        return req.withNewConnection(to: .redis) { redis in
+            // use redis connection
+            // send INFO command to redis
+            return redis.command("INFO")
+                // map the resulting RedisData to a String
+                .map { $0.string ?? "" }
+        }
+    }
+    
     // Example of configuring a controller
     let todoController = TodoController()
     router.get("todos", use: todoController.index)
