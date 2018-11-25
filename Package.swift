@@ -25,9 +25,12 @@ let package = Package(
         // ⚡️Non-blocking, event-driven Redis client.
         .package(url: "https://github.com/vapor/redis.git", from: "3.0.2"),
         
+        /// 💻 APIs for creating interactive CLI tools.
+        .package(url: "https://github.com/vapor/console.git", from: "3.1.0")
+        
     ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL", "Leaf", "Redis"]),
+        .target(name: "App", dependencies: ["Vapor", "Crypto", "FluentMySQL", "Leaf", "Redis", "Logging"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
