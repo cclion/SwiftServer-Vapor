@@ -38,7 +38,7 @@ final class ImageController: RouteCollection{
             
             try Data(imageFile.data).write(to: URL(fileURLWithPath: path))
             
-            return try ResponseJSON<Empty>(code: 0, message: "上传成功").encode(for: req)
+            return try ResponseJSON<[String : String]>(code: 0, message: "上传成功", data:["imageStr":path]).encode(for: req)
 
           })
         })
