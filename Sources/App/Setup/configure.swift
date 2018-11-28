@@ -8,8 +8,6 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     /// Register providers first
     try services.register(FluentMySQLProvider())
 
-
-    
     /// Register routes to the router
     let router = EngineRouter.default()
     try routes(router)
@@ -25,14 +23,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     /// Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    /// middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
+    middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
+    middlewares.use(VersionMiddleware())
     services.register(middlewares)
 
     // Configure a MYSQL database
     let mysqlConfig :MySQLDatabaseConfig
     
-    if env.isRelease { //正式服
+//    if env.isRelease { //正式服
         mysqlConfig = MySQLDatabaseConfig(
             hostname: "39.98.67.77",
             port: 3306,
@@ -40,15 +39,15 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
             password: "123456",
             database: "vapor"
         )
-    }else{
-        mysqlConfig = MySQLDatabaseConfig(
-            hostname: "127.0.0.1",
-            port: 3306,
-            username: "root",
-            password: "123456",
-            database: "vapor"
-        )
-    }
+//    }else{
+//        mysqlConfig = MySQLDatabaseConfig(
+//            hostname: "127.0.0.1",
+//            port: 3306,
+//            username: "root",
+//            password: "123456",
+//            database: "vapor"
+//        )
+//    }
 
     services.register(mysqlConfig)
 
