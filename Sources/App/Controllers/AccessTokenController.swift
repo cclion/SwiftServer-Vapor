@@ -44,7 +44,7 @@ final class AccessTokenController {
             .flatMap({ (exist) in
                 
                 guard exist != nil else{
-                    return try ResponseJSON<Empty>(code: 103, message: "tokenw错误 没有找到这个用户").encode(for: req)
+                    return try ResponseJSON<Empty>(code: 103, message: "token错误 没有找到这个用户").encode(for: req)
                 }
                 return try UID(exist!.userID)
             })
