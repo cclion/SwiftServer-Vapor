@@ -128,3 +128,86 @@
 "message": "注册成功"
 }
 ```
+<h2 id="文章">文章</h2>
+
+文章相关接口包括上传文章、获取个人文章列表。
+
+<h3 id="上传文章">上传文章</h3>
+
+> article/addArticle
+
+##### 请求方式：POST
+
+##### 请求参数
+
+|参数|必选|类型|说明|
+|:--|:---|:---|:--- |
+| title | 是 | string | 标题 |
+| content | 是 | string | 文本内容 |
+| image | 否 | string | 图片地址 |
+
+
+
+##### 返回字段
+
+|返回字段|字段类型|说明 |
+|:----- |:------|:---|
+| code | int | 0 = 成功 |
+| message | string | 添加成功|
+
+
+##### 返回示例
+
+
+```
+{
+"status": 0,
+"message": "添加成功"
+}
+```
+<h3 id="获取个人文章列表">获取个人文章列表</h3>
+
+> article/getArticles
+
+##### 请求方式：POST
+
+##### 请求参数
+
+`无`
+
+##### 返回字段
+
+|返回字段|字段类型|说明 |
+|:----- |:------|:---|
+| id | int | 文章id |
+| title | string | 文章标题 |
+| content | string | 文章内容 |
+| image | string | 图片内容 |
+| userID | int | 用户ID |
+
+
+
+##### 返回示例
+
+
+```
+{
+"status": 0,
+"message": "添加成功",
+"data": [
+{
+"id": 1,
+"title": "title",
+"content": "这是文本",
+"userID": 7
+},
+{
+"id": 2,
+"title": "title",
+"content": "这是文本",
+"userID": 7
+}
+]
+
+}
+```
