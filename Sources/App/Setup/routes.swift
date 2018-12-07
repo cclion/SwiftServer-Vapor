@@ -31,5 +31,24 @@ public func routes(_ router: Router) throws {
     try router.register(collection: OAuthController())
     try router.register(collection: ImageController())
     try router.register(collection: ArticleController())
+    
+    router.get("set") { req -> Future<HTTPStatus> in
+        // create a new redis connection
+        return req.withNewConnection(to: .redis) { redis in
+            // save a new key/value pair to the cache
+            return redis.set("hello", to: "world")
+                // convert void future to HTTPStatus.ok
+                .transform(to: .ok)
+        }
+    }
+    router.get("get") { req -> Future<String> in
+        // create a new redis connection
+        return req.withNewConnection(to: .redis) { redis in
+            // fetch the key/value pair from the cache, decoding a String
+            return redis.get("hello", as: String.self)
+                // handle nil case
+                .map { $0 ?? "" }
+        }
+    }
 
 }
