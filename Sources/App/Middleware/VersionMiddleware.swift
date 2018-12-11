@@ -13,9 +13,7 @@ final class VersionMiddleware: Middleware {
         
        return try next.respond(to: request).flatMap({ (resp) in
 
-        var temp = resp.http.headers
-
-        temp.add(name: HTTPHeaderName("Version"), value: "API:v1.0")
+        resp.http.headers.add(name: HTTPHeaderName("Version"), value: "API:v1.0")
 
         return try resp.encode(for: request)
        })
